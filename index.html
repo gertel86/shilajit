@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="google" value="notranslate">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Meta Pixel Code -->
+	<script>
+	!function(f,b,e,v,n,t,s)
+	{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	n.queue=[];t=b.createElement(e);t.async=!0;
+	t.src=v;s=b.getElementsByTagName(e)[0];
+	s.parentNode.insertBefore(t,s)}(window, document,'script',
+	'https://connect.facebook.net/en_US/fbevents.js');
+	fbq('init', '612336401570865'); 
+	fbq('track', 'PageView');
+	</script>
+	<noscript>
+		<img height="1" width="1" style="display:none"
+		src="https://www.facebook.com/tr?id=612336401570865&ev=PageView&noscript=1"/>
+	</noscript>
+	<!-- End Meta Pixel Code -->
+
+	<title>Estamos Cargando una Oferta para ti...</title>
+
+	<style>
+		html { font-family: sans-serif; font-size: 62.5%; height: 100%; }
+		body { margin: 0; font-family: "Open Sans", sans-serif, Arial; font-size: 2rem; color: #fff; background: #1c1c1c; height: 100%; }
+		.wrap { position: relative; text-align: center; height: 100%; }
+		.start iframe { width: 100%; height: 100vh; border: none; }
+		.offer-box {
+			position: fixed;
+			width: 280px;
+			text-align: center;
+			top: 20%;
+			background-color: #fff;
+			border-radius: 30px;
+			color: #000;
+			left: 50%;
+			transform: translateX(-50%);
+			box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.42);
+			padding: 15px;
+		}
+		.offer-box p { margin: 10px 0; }
+		.offer-box img { width: 80px; }
+		.offer-box .cta { padding: 15px; font-size: 20px; color: #0c81a9; cursor: pointer; font-weight: bold; }
+	</style>
+</head>
+
+<body>
+
+	<div class="wrap">
+		<div class="start">
+			<iframe id="mainIframe" src="https://novedadestv.com.ec/products/shilajit" scrolling="yes"></iframe>
+		</div>
+	</div>
+
+	<!-- Oferta Especial -->
+	<div class="offer-box">
+		<p style="font-size: 20px; font-weight: bold; color: #dc1f2e;">
+			¡Espera! Oferta especial para <span id="userCity">tu ciudad</span>
+		</p>
+		<p> <img src="https://images.emojiterra.com/google/noto-emoji/animated-emoji/1f514.gif"> </p>
+		<p style="font-size: 16px;">Hemos detectado que estás en <span id="userLocation">tu área</span>. 
+			Tenemos un descuento exclusivo solo por hoy.</p>
+		<p class="cta" onclick="redirectToIframeUrl()">Ver Oferta</p>
+	</div>
+
+	<script>
+		// Función para obtener la ubicación del usuario
+		async function getUserLocation() {
+			try {
+				const response = await fetch('https://ipapi.co/json/');
+				const data = await response.json();
+
+				if (data.city && data.region) {
+					document.getElementById('userCity').textContent = data.city;
+					document.getElementById('userLocation').textContent = `${data.city}, ${data.region}`;
+				}
+			} catch (error) {
+				console.log('Error al obtener la ubicación:', error);
+			}
+		}
+
+		// Llamar a la función cuando la página cargue
+		document.addEventListener('DOMContentLoaded', getUserLocation);
+
+		// Redirección a la oferta al hacer clic en "Ver Oferta"
+		function redirectToIframeUrl() {
+			window.location.href = document.getElementById('mainIframe').src;
+		}
+
+		// Evitar que el usuario use "Atrás" en el navegador
+		history.pushState(null, null, document.URL);
+		window.addEventListener('popstate', function () {
+			history.pushState(null, null, document.URL);
+		});
+	</script>
+
+</body>
+</html>
